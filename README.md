@@ -5,12 +5,11 @@
 [![Publish Release](https://github.com/AutomoxCommunity/automox-mcp/actions/workflows/release.yml/badge.svg)](https://github.com/AutomoxCommunity/automox-mcp/actions/workflows/release.yml)
 [![PyPI version](https://badge.fury.io/py/automox-mcp.svg)](https://badge.fury.io/py/automox-mcp)
 
-This project provides a Model Context Protocol (MCP) server that enables Automox customers to access
-their Automox console through AI assistants. The server exposes several high-level workflow tools for
-managing devices, policies, and user accounts with a focus on common operational tasks.
+This project provides a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that enables Automox customers to access their Automox console through AI assistants. The server exposes several high-level workflow tools for managing devices, policies, and user accounts with a focus on common operational tasks.
 
-Rather than a full API wrapper, this package aims to offer a curated set of Automox workflows tailored to
-common operational scenarios.
+**MCP Specification:** 2025-11-25
+
+Rather than a full API wrapper, this package aims to offer a curated set of Automox workflows tailored to common operational scenarios.
 
 > [!IMPORTANT]
 > The project is under active development. Functionality may change before a stable 1.0 release. Contributions and suggestions for additional workflows are welcome! Please provide any feedback through [GitHub Issues](https://github.com/AutomoxCommunity/automox-mcp/issues).
@@ -128,92 +127,12 @@ The server also exposes 5 MCP resources that provide reference data and schemas:
 
 ### Example Workflows
 
-Below are some real-world examples of how you can utilize the MCP server with your AI assistant.
-
-#### Device Health Summary
-
-Get a quick snapshot of your device health:
-
-```
-Ask: "What can you tell me about the health of my devices in Automox?"
-```
-
-The MCP server will return a comprehensive summary including:
-- Overall fleet health (total devices, compliance rate)
-- Device status breakdown (ready, not ready, needs reboot, refreshing)
-- Patching status (devices with pending patches, devices needing attention)
-- Check-in recency analysis (last 24 hours, 7 days, 30 days, 30+ days)
-- Key observations and suggested next steps
-
-#### Reboot a Device
-
-Simple yet effective device management:
-
-```
-Ask: "Can you reboot the device 'Testing box' in Automox?"
-```
-
-The AI assistant will:
-1. Search for devices matching the hostname
-2. Present matching devices if there are multiple
-3. Execute the reboot command once confirmed
-4. Can even verify the reboot was successful by checking device uptime
-
-#### Create and Update Policies
-
-Create a patch policy to keep Firefox up to date:
-
-```
-Ask: "Can you create a patch policy that keeps Firefox up to date?
-     Make sure to include 'henry' somewhere in the name of the patch policy
-     and target the devices in the 'MCP testing' group."
-```
-
-The MCP server will:
-1. Look up the server group by name
-2. Create a patch policy with auto-patching enabled
-3. Configure the schedule (weekdays at 2 AM by default)
-4. Set up user notifications
-5. Display the created policy configuration
-
-You can also easily update policy schedules:
-
-```
-Ask: "Can you update the 'Auto-Patch Firefox - henry' policy to only run on weekdays?"
-```
-
-The AI will update the schedule from weekend to weekdays automatically.
-
-#### Check the Audit Log
-
-Review user activity in your Automox console:
-
-```
-Ask: "What did Mark Hansen do in our Automox console last week?"
-```
-
-The MCP server will:
-1. Query the audit trail for each day in the specified date range
-2. Summarize all activities by day
-3. Provide totals and highlight key actions (policy changes, device operations, user management)
-4. Identify patterns like policy cleanup or reorganization activities
-
-#### Report Generation
-
-The MCP server supports generating comprehensive reports (works best with Claude Desktop due to PDF generation capabilities):
-
-```
-Ask: "Generate a comprehensive report on our policy health and device status"
-```
-
-The AI can:
-- Gather data from multiple endpoints
-- Compile statistics and trends
-- Format the information into a readable report
-- Export to PDF format (when using Claude Desktop)
-
-> [!NOTE]
-> Report generation may take several minutes depending on organization size. Using a lighter model like Haiku can speed this up, though with potential trade-offs in detail. The process is highly customizable based on your needs.
+See [Example Workflows](docs/guides/examples.md) for real-world examples including:
+- Device health summaries
+- Rebooting devices
+- Creating and updating policies
+- Checking audit logs
+- Generating reports
 
 ### Tool Parameters
 

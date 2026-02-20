@@ -11,7 +11,7 @@ from automox_mcp.utils.tooling import (
     as_tool_response,
     format_error,
 )
-from automox_mcp.workflows.policy import _normalize_status, _take
+from automox_mcp.workflows.policy import normalize_status, take
 
 
 def test_as_tool_response_normalizes_metadata():
@@ -31,18 +31,18 @@ def test_as_tool_response_normalizes_metadata():
     assert result["metadata"]["deprecated_endpoint"] is False
 
 
-def test_normalize_status_handles_variants():
-    assert _normalize_status("Succeeded") == "success"
-    assert _normalize_status("Partial_success") == "partial"
-    assert _normalize_status("Failed") == "failed"
-    assert _normalize_status("ErrorOccurred") == "failed"
-    assert _normalize_status(None) == "unknown"
+def testnormalize_status_handles_variants():
+    assert normalize_status("Succeeded") == "success"
+    assert normalize_status("Partial_success") == "partial"
+    assert normalize_status("Failed") == "failed"
+    assert normalize_status("ErrorOccurred") == "failed"
+    assert normalize_status(None) == "unknown"
 
 
-def test_take_limits_results():
+def testtake_limits_results():
     data = [1, 2, 3, 4]
-    assert _take(data, 0) == []
-    assert _take(data, 2) == [1, 2]
+    assert take(data, 0) == []
+    assert take(data, 2) == [1, 2]
 
 
 @pytest.mark.asyncio
@@ -115,6 +115,7 @@ async def test_create_server_registers_core_tools(monkeypatch):
 
     server = automox_mcp.create_server()
     tools = await server.get_tools()
+    # FastMCP 2.x returns dict with tool names as keys
     tool_names = set(tools.keys())
     required = {"execute_policy_now", "execute_device_command", "audit_trail_user_activity"}
     assert required.issubset(tool_names)
